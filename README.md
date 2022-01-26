@@ -1,6 +1,6 @@
-# Meu Repositório do Bootcamp Cognizant Java Developer :coffee:
+# Meu Repositório dos Cursos e Bootcamps da DIO.me :coffee:
 
-## Projetos feitos no bootcamp de Java da Cognizant, pela Digital Inovation One :computer:
+## Projetos feitos pels Bootcamps da Digital Inovation One :computer:
 
 <p align="center">
  <a href="#organização">Organização</a> •
@@ -11,6 +11,8 @@
 Java se firmou como minha primeira linguagem de programação, lá em 2016, e, ainda hoje,
 mesmo depois de ter conhecido tantas outras linguagens, ainda gosto muito de programar
 em Java. Na verdade, quanto mais aprendo sobre ela mais vontade tenho em usa-la! 
+
+Aqui temos projetos feitos pelo bootcamp Cognizant Java Developer e GFT Start #3 Java.
 
 ### Organização
 
