@@ -21,7 +21,8 @@ boa organização. Você pode ver os repositórios em <a href="#projetos">Projet
 
 ### Projetos
 
-- [ ] Ainda não tenho nenhum 😢, mas estou trabalhando para mudar isso 😎 ! 
+- [ ] Estruturas de Dados: Implementação de diversas estruturas de dados em Java, como pilha, fila, listas e árvore.  
+- [ ] DDBank: Projeto de um gerenciar digital de bancos, em Java, manejando agências, clientes e contas.
 
 ### Sobre
 
