@@ -1,0 +1,218 @@
+@startuml iphone
+
+package br.com.iphone.sistema <<Folder>> {
+    
+    class AparelhoTelefonico {
+        -configuracoesSistema : Configuracoes
+        -aplicacoes : TreeSet<Aplicacao>
+        +AparelhoTelefonico()
+        +AparelhoTelefonico(configuracoesSistema : Configuracoes)
+        +AparelhoTelefonico(aplicacoesPadrao : TreeSet<Aplicacao>)
+        +AparelhoTelefonico(configuracoesSistema : Configuracoes, aplicacoesPadrao : TreeSet<Aplicacao>)
+        +getConfiguracoesSistema() : Configuracoes
+        +setConfiguracoesSistema(configuracoesSistema : Configuracoes) : void 
+        +instalarAplicacao(aplicacaoNova : Aplicacao) : void
+        +desinstalarAplicacao(int indice) : void
+        +usarAplicacao(int indice) : TreeSet<Aplicacao>
+        +obterAplicacoes() : TreeSet<Aplicacao>
+        +listarAplicacoes() : String
+        +toString() : String
+    }
+    
+    class Configuracoes {
+        -volume : int
+        -luminosidade : int
+        -conexaoWifi : Boolean
+        -nomeDono : String
+        -nomeDispositivo : String
+        -modeloDispositivo : String
+        -memoriaDispositivo : int
+        +Configuracoes(modeloDispositivo : String, memoriaDispositivo : int)
+        +aumentarLuminosidade() : void
+        +diminuirLuminosidade() : void
+        +aumentarVolume() : void
+        +diminuirVolume() : void
+        +setNomeDono(nomeDono : String) : void
+        +setNomeDispositivo(nomeDispositivo : String) : void
+        +setLuminosidade(luminosidade : int) : void
+        +setVolume(volume : int) : void
+        +toggleConexaoWifi() : void
+        +getNomeDono() : String
+        +getNomeDispositivo() : String
+        +getLuminosidade() : int
+        +getVolume() : int
+        +getConexaoWifi() : Boolean
+        +getMemoriaDispositivo() : int
+        +toString() : String
+    }
+
+}
+
+package br.com.iphone.aplicacoes <<Folder>> {
+
+    abstract class Aplicacao implements Comparable {
+        - nomeAplicacao : String
+        + Aplicacao(nomeAplicacao : String)
+        + getNomeAplicacao() : String
+        + setNomeAplicacao(nomeAplicacao : String) : void
+    }
+
+}
+
+package br.com.iphone.aplicacoes.musica <<Folder>> {
+
+    enum TipoListaMusicas {
+        +TODAS
+        +FAVORITAS
+    }
+
+    class ReprodutorMusicas extends Aplicacao {
+        -musicaAtual : Musica
+        -listaMusicas : TreeSet<Musica>
+        -filaMusicas : LinkedList<Musica>
+        -musicasFavoritas : TreeSet<Musica>
+        +ReprodutorMusicas(nomeAplicacao : String)
+        +ReprodutorMusicas(nomeAplicacao : String, listaMusicas : HashSet<Musica>)
+        +adicionarMusica(novaMusica : Musica) : void
+        +removerMusica(indiceMusica : int) : void
+        +listarMusicas() : String
+        +listarMusicas(tipoLista : TipoListaMusicas) : String
+        +obterMusicaAtual() : Musica
+        +reproduzirMusica() : void
+        +pausarMusica() : void
+        +selecionarMusica(indice : int) : void
+        +selecionarMusica(indice : int, tipoLista : TipoListaMusicas) : void
+        +toggleFavoritoMusica() : void
+        +enfileirarMusica() : void
+        +equals(outroReprodutor : ReprodutorMusicas) : Boolean
+        +hashCode() : int
+        +toString() : String
+    }
+
+    class Musica implements Comparable {
+        +nomeMusica : String
+        +nomeArtista : String
+        +estiloMusica : String
+        +duracao : String
+        +Musica(nomeMusica : String, nomeArtista : String, estiloMusica : String, duracao : String)
+        +setNomeMusica(nomeMusica : String) : void
+        +setNomeArtista(nomeArtista : String) : void
+        +setEstiloMusica(estiloMusica : String) : void
+        +setDuracao(duracao : String) : void
+        +getNomeMusica() : String
+        +getNomeArtista() : String
+        +getEstiloMusica() : String
+        +getDuracao() : String
+        +equals(outraMusica : Musica) : Boolean
+        +hashCode() : int
+        +toString() : String
+    }
+
+}
+
+package br.com.iphone.aplicacoes.telefone <<Folder>> {
+
+    enum TipoLigacao {
+        +REALIZADA
+        +RECEBIDA
+        +PERDIDA
+    }
+
+    class Telefone extends Aplicacao {
+        -chamadaRecebida : Telefone
+        -instanciaTelefone : Telefone
+        -historicoLigacoes : LinkedList<Ligacao> 
+        -listaContatos : TreeSet<NumeroTelefone>
+        -Telefone(listaContatos : TreeSet<NumeroTelefone>)
+        +discarNumero(numero : String)
+        +ligarNumero(indice : int) : Boolean
+        +atenderNumero() : Boolean
+        +enviarCorreioVoz(mensagem : String) : void
+        +limparHistoricoLigacoes() : void
+        +listarHistoricoLigacoes() : String
+        +obterLigacao(indice : int) : Ligacao
+        +removerLigacao(indice : int) : void
+        +adicionarNumero(numeroNovo : NumeroTelefone) : void
+        +removerNumero(indice : int) : void
+        +obterNumero(indice : int) : NumeroTelefone
+        +obterChamadaRecebida() : NumeroTelefone
+        +listarNumeros() : String      
+        +obterInstanciaTelefone(listaContatos : TreeSet<NumeroTelefone>) : Telefone
+        +toString() : String
+    }
+
+    class Ligacao extends NumeroTelefone {
+        -horaLigacao : Date
+        -tipoLigacao : TipoLigacao
+        +Ligacao(numeroTelefone : NumeroTelefone, horaLigacao : Date, tipoLigacao : TipoLigacao)
+        +getHoraLigacao() : Date
+        +getTipoLigacao() : TipoLigacao
+    }
+
+    class CorreioVoz extends Ligacao {
+        -mensagem : String
+        +CorreioVoz(numeroTelefone : NumeroTelefone, mensagem : String, horaLigacao : Date, tipoLigacao : TipoLigacao)
+        +getMensagem() : String
+    }
+
+    class NumeroTelefone implements Comparable {
+        -nomePessoa : String
+        -numero : String
+        +NumeroTelefone(numero : String, nomePessoa : String)
+        +{static}validarNumero(numero : String) : Boolean
+        +getNomePessoa() : String
+        +getNumero() : String
+        +setNomePessoa(nomePessoa : String) : void
+        +setNumero(numero : String) : void
+        +toString() : String
+        +equals(outroNumero : NumeroTelefone) : Boolean
+        +hashCode() : int
+    }
+
+}
+
+package br.com.iphone.aplicacoes.internet <<Folder>> {
+
+    class NavegadorInternet extends Aplicacao {
+        -abasAbertas : LinkedList<PaginaInternet>
+        +NavegadorInternet()
+        +adicionarAba(novaAba : PaginaInternet) : void
+        +fecharAba(indice : int) : void
+        +fecharAbas() : void
+        +selecionarAba(indice : int) : void
+        +atualizarAba(indice : int) : void
+        +listarAbas() : String
+        +obterAba(indice : int) : PaginaInternet
+        +toString() : String
+    }
+
+    class PaginaInternet implements Comparable {
+        -linkPagina : String
+        -cabecalho : String
+        -conteudo : String
+        +PaginaInternet(linkPagina : String, cabecalho : String, conteudo : String)
+        +getLinkPagina() : String
+        +getCabecalho() : String
+        +getConteudo() : String
+        +setLinkPagina(linkPagina : String) : void
+        +setCabecalho(cabecalho : String) : void
+        +setConteudo(conteudo : String) : void
+        +toString() : String
+        +equals(paginaInternet : PaginaInternet) : Boolean
+        +hashCode() : int
+    }
+
+}
+
+AparelhoTelefonico "0..1" *-- "1..1" Configuracoes : Possui >
+AparelhoTelefonico "1..*" o-- "1..*" NavegadorInternet : Possui >
+AparelhoTelefonico "1..*" o-- "1..1" Telefone : Possui >
+AparelhoTelefonico "1..*" o-- "1..*" ReprodutorMusicas : Possui >
+AparelhoTelefonico "1..*" *-- "0..*" Ligacao : Recebe/Envia
+NavegadorInternet "0..*" *-- "0..*" PaginaInternet : Acessa >
+Telefone "0..1" o-- "0..*" NumeroTelefone : Utiliza >
+Ligacao "0..*" *-- "1..1" TipoLigacao : É do tipo
+ReprodutorMusicas "0..*" o-- "0..*" Musica : Reproduz >
+ReprodutorMusicas "0..*" *-- "2..2" TipoListaMusicas : Possui Listas >
+
+@enduml
